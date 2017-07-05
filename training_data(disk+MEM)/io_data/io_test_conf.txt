@@ -1,0 +1,29 @@
+# cache clean
+echo 1 > /proc/sys/vm/drop_caches
+
+
+
+
+# sysbench
+
+sysbench --test=fileio --file-total-size=15G --num-threads=1 --max-time=60 --file-extra-flags=direct --file-io-mode=sync --file-test-mode=seqrd --file-block-size=16384 prepare
+
+
+sysbench --test=fileio --file-total-size=15G --num-threads=1 --max-time=60 --file-extra-flags=direct --file-io-mode=sync --file-test-mode=seqrd --file-block-size=16384 run
+
+
+
+sysbench --test=fileio --file-total-size=15G --num-threads=1 --max-time=60 --file-extra-flags=direct --file-io-mode=sync --file-test-mode=seqrd --file-block-size=16384 cleanup
+
+
+
+
+
+
+# iozone
+
+./iozone -i 0 -i 1 -i 2 -s 300m -r 64k -I
+
+
+# iostat
+./iostat sda -d -m -x 1
